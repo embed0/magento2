@@ -114,12 +114,18 @@ class RenderLayered extends Template
         $attributeOptionIds = array_keys($attributeOptions);
         $swatches = $this->swatchHelper->getSwatchesByOptionsId($attributeOptionIds);
 
+        $filterOptions = [];
+        foreach ($this->filter->getItems() as $item) {
+            $filterOptions[$item->getValue()] = $item->getData();
+        }
+
         $data = [
             'attribute_id' => $this->eavAttribute->getId(),
             'attribute_code' => $this->eavAttribute->getAttributeCode(),
             'attribute_label' => $this->eavAttribute->getStoreLabel(),
             'options' => $attributeOptions,
             'swatches' => $swatches,
+            'filters' => $filterOptions
         ];
 
         return $data;
